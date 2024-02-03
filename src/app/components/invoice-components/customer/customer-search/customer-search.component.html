@@ -1,0 +1,18 @@
+<div [formGroup]="search">
+  <input
+    type="text"
+    class="search"
+    formControlName="input"
+    [matAutocomplete]="auto"
+    placeholder="Caută..."
+  />
+  <mat-autocomplete
+    #auto="matAutocomplete"
+    (optionSelected)="setCustomer()"
+    class="auto"
+  >
+    @for(option of customerList;track option){
+    <mat-option value="{{ option }}">{{ option }}</mat-option>
+    }
+  </mat-autocomplete>
+</div>

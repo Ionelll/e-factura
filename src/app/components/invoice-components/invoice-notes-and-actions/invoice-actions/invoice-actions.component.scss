@@ -1,0 +1,28 @@
+.invoice-button {
+  all: unset;
+  height: 100%;
+  width: 100%;
+  color: white;
+  font-size: 14px;
+  font-family: "Audiowide", sans-serif;
+  text-wrap: nowrap;
+  text-align: center;
+  background: transparent;
+  transition-duration: 1s;
+  &:hover {
+    background: var(--actions);
+  }
+}
+.container {
+  background: linear-gradient(to bottom, #0000008c, transparent);
+  overflow: hidden;
+  gap: 1rem;
+  display: flex;
+  justify-content: space-around;
+  margin: auto;
+  height: 100%;
+}
+.e-factura {
+  font-family: "Poppins", sans-serif;
+  font-size: 17px;
+}

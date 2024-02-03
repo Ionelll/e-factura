@@ -1,0 +1,82 @@
+<form class="container" id="content" [formGroup]="Lines">
+  <div class="header">
+    <p class="title">ARTICOLE</p>
+    <app-invoice-totals></app-invoice-totals>
+  </div>
+  <div class="content">
+    <p class="header-label label">Pos.</p>
+    <p class="header-label label" value="Article">Nume</p>
+    <p class="header-label label">TVA (%)</p>
+    <p class="header-label label" value="Unit">Cantitate</p>
+    <p class="header-label label" value="Ammount">Unitate de masura</p>
+    <p class="header-label label">Cost per unitate ({{ currency }})</p>
+    <p class="header-label label">Total</p>
+    <p></p>
+    <ng-container
+      class="row"
+      formArrayName="array"
+      *ngFor="let row of Lines.controls.array.controls; index as i"
+    >
+      <ng-container [formGroupName]="i">
+        <input
+          class="input"
+          type="number"
+          value="{{ i + 1 }}"
+          disabled
+          class="input"
+        />
+        <ng-container formGroupName="Item">
+          <textarea
+            class="input"
+            cdkTextareaAutosize
+            cdkAutosizeMinRows="1"
+            auto2="matAutocomplete"
+            formControlName="Name"
+            (focus)="manageAutocompleteInArray(i)"
+          ></textarea>
+          <mat-autocomplete
+            class="mat-input-element"
+            #auto2="matAutocomplete"
+            (optionSelected)="autofillRow($event.option.value, i)"
+          >
+            <mat-option
+              *ngFor="let option of filteredOptions | async"
+              [value]="option.Item.Name"
+            >
+              {{ option.Item.Name }}
+            </mat-option>
+          </mat-autocomplete>
+
+          <ng-container formGroupName="ClassifiedTaxCategory">
+            <input class="input" type="text" formControlName="ID" hidden />
+            <input class="input" type="number" formControlName="Percent" />
+            <ng-container formGroupName="TaxScheme" />
+            <input class="input" type="text" formControlName="ID" hidden />
+          </ng-container>
+        </ng-container>
+        <input class="input" type="number" formControlName="InvoicedQuantity" />
+        <ng-container formGroupName="Price">
+          <select class="input" formControlName="UnitCode">
+            <option *ngFor="let item of units" [value]="item.CommonCode">
+              {{ item.name }}
+            </option>
+          </select>
+          <input class="input" type="number" formControlName="PriceAmount" />
+          <input type="text" formControlName="BaseQuantity" hidden />
+        </ng-container>
+        <input
+          class="input"
+          readonly
+          type="text"
+          formControlName="LineExtensionAmount"
+        />
+      </ng-container>
+
+      <button (click)="removeInput(i)" class="link" [tabindex]="-1">
+        <mat-icon class="actionslabel">delete_outline</mat-icon>
+      </button>
+    </ng-container>
+
+    <button (click)="addInput()" class="link add-row">+ Add row</button>
+  </div>
+</form>

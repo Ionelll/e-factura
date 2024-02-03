@@ -1,1 +1,165 @@
-/* You can add global styles to this file, and also import other style files */
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use "@angular/material" as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$e-factura-primary: mat.define-palette(mat.$indigo-palette);
+$e-factura-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$e-factura-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$e-factura-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $e-factura-primary,
+      accent: $e-factura-accent,
+      warn: $e-factura-warn,
+    ),
+  )
+);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($e-factura-theme);
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  user-select: none;
+}
+body {
+  background-image: url("../src/assets/background/5590457.jpg");
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow-y: scroll;
+  background-attachment: fixed;
+}
+p {
+  margin: 0;
+  color: white;
+}
+:root {
+  --toolbar: #1a2730;
+  --background: #f2fcff;
+  --input-focused: #00000034;
+  --components: #ffffff05;
+  --components-border: #ffffff40;
+  --logo: #f4edea;
+  --label: #0063cd;
+  --actions: #06bcc1;
+  --actions-light: #f4edea;
+  --input-border: #02020b;
+}
+.container {
+  background-color: var(--components);
+  backdrop-filter: blur(10px);
+  // border: 1px solid var(--components-border);
+  border-radius: 10px;
+  border: 1px solid var(--components-border);
+  position: relative;
+  box-shadow: 2px 2px 10px 1px #00000075;
+}
+.input,
+.textarea {
+  font-size: 1em;
+  width: 100%;
+  color: white;
+  font-weight: 200;
+  font-family: "Poppins", sans-serif;
+  outline: none;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid white;
+}
+
+.input[type="date"] {
+  text-align: center;
+  color-scheme: dark;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  appearance: none;
+  -moz-appearance: textfield;
+}
+
+.link {
+  all: unset;
+  color: var(--actions);
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  padding: 1rem;
+  text-wrap: nowrap;
+  cursor: pointer;
+
+  &:hover {
+    color: var(--actions-light);
+  }
+}
+.button {
+  color: var(--actions);
+  background-color: #00000094;
+  box-shadow: 2px 2px 5px -2px var(--input-border);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  transition-duration: 0.1s;
+  &:hover {
+    color: white;
+  }
+}
+.label {
+  grid-column: 1;
+  letter-spacing: 1px;
+  color: white;
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  font-weight: 200;
+  text-wrap: nowrap;
+  // border-bottom: 1px solid var(--input-border);
+}
+.title {
+  color: white;
+  font-family: "Audiowide", sans-serif;
+  font-size: 20px;
+  letter-spacing: 2px;
+}
+.opened-view {
+  background-color: rgb(0 0 0 / 55%);
+}
+.formatted-adress {
+  display: flex;
+  color: white;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1em;
+  font-weight: 200;
+  font-family: "Poppins", sans-serif;
+  flex-wrap: wrap;
+  border-bottom: 1px solid white;
+  div {
+    text-wrap: nowrap;
+  }
+}
+option {
+  color: black;
+}

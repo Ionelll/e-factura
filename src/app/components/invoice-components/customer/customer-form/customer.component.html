@@ -1,0 +1,144 @@
+<div class="container" (click)="status = true" (mouseleave)="status = false">
+  <div class="header">
+    <p class="title">CLIENT</p>
+    <app-customer-search class="search"></app-customer-search>
+  </div>
+  <div class="content" [@grow]="status ? true : false">
+    <div class="invalid-customer">
+      <p class="invalid" *ngIf="!status && !recieved">
+        Caută client sau adauga unul nou!
+      </p>
+      <p class="invalid" *ngIf="!status && recieved && Customer.invalid">
+        Datele clientului sunt incomplete!
+      </p>
+    </div>
+    <div class="closed-view" *ngIf="!status && Customer.valid">
+      <p class="customer-name">
+        {{ Customer.controls.PartyName.controls.Name.value }}
+      </p>
+
+      <p class="label">Nr. înregistrare</p>
+      <p class="value">
+        {{ Customer.controls.PartyLegalEntity.controls.CompanyLegalForm.value }}
+      </p>
+      <p class="label">CUI</p>
+      <p class="value">
+        {{ Customer.controls.PartyTaxScheme.controls.CompanyID.value }}
+      </p>
+    </div>
+    <div class="opened-view" *ngIf="status">
+      <form [formGroup]="Customer" class="form">
+        <ng-container formGroupName="PartyName">
+          <label for="name" class="label">Nume</label>
+          <input type="text" id="name" class="input" formControlName="Name" />
+        </ng-container>
+        <ng-container formGroupName="PartyLegalEntity">
+          <label for="companyRegistration" class="label"
+            >Nr. înregistrare</label
+          >
+          <input
+            type="text"
+            class="input"
+            id="companyRegistration"
+            formControlName="CompanyLegalForm"
+          />
+        </ng-container>
+        <ng-container formGroupName="PartyTaxScheme">
+          <label for="companyId" class="label">CUI</label>
+          <input
+            type="text"
+            class="input"
+            id="companyId"
+            formControlName="CompanyID"
+          />
+        </ng-container>
+        <label class="label">Adresa</label>
+        <div class="edit-adress-container">
+          <div class="formatted-adress">
+            <div *ngIf="Customer.controls.PostalAdress.controls.Postbox.value">
+              {{ Customer.controls.PostalAdress.controls.Postbox.value }},&nbsp;
+            </div>
+            <div>
+              {{
+                Customer.controls.PostalAdress.controls.StreetName.value
+              }}&nbsp;
+            </div>
+            <div
+              *ngIf="
+                Customer.controls.PostalAdress.controls.BuildingNumber.value
+              "
+            >
+              {{
+                Customer.controls.PostalAdress.controls.BuildingNumber.value
+              }},&nbsp;
+            </div>
+            <div *ngIf="Customer.controls.PostalAdress.controls.CityName.value">
+              {{
+                Customer.controls.PostalAdress.controls.CityName.value
+              }},&nbsp;
+            </div>
+            <div
+              *ngIf="
+                Customer.controls.PostalAdress.controls.CountrySubentity.value
+              "
+            >
+              {{
+                Customer.controls.PostalAdress.controls.CountrySubentity.value
+              }},&nbsp;
+            </div>
+            <div
+              *ngIf="
+                Customer.controls.PostalAdress.controls.Country.controls
+                  .IdentificationCode.value
+              "
+            >
+              {{
+                Customer.controls.PostalAdress.controls.Country.controls
+                  .IdentificationCode.value
+              }}&nbsp;
+            </div>
+            <div
+              *ngIf="Customer.controls.PostalAdress.controls.PostalZone.value"
+            >
+              {{ Customer.controls.PostalAdress.controls.PostalZone.value }}
+            </div>
+          </div>
+          <button class="link adress-link" title="Schimbă adresa">
+            <span class="material-symbols-outlined"> border_color </span>
+          </button>
+        </div>
+        <p class="label contact">Contact</p>
+        <ng-container formGroupName="Contact">
+          <label for="numeContact" class="label">Nume</label>
+          <input
+            type="text"
+            id="numeContact"
+            class="input"
+            formControlName="Name"
+          />
+          <label for="phone" class="label">Telefon</label>
+          <input
+            type="text"
+            id="phone"
+            class="input"
+            formControlName="Telephone"
+          />
+          <label for="email" class="label">E-mail</label>
+          <input
+            type="text"
+            class="input"
+            id="email"
+            formControlName="ElectronicMail"
+          />
+        </ng-container>
+      </form>
+    </div>
+  </div>
+  <div class="footer" *ngIf="status">
+    <button class="button">Client nou</button>
+    <div class="button-right">
+      <button class="button">Salvează</button>
+      <button class="button">Renuntă</button>
+    </div>
+  </div>
+</div>

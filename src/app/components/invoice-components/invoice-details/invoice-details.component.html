@@ -1,0 +1,118 @@
+<div class="container" (click)="status = true" (mouseleave)="status = false">
+  <div class="header">
+    <p class="title">DETALII</p>
+  </div>
+  <div class="content" [@grow]="status ? true : false">
+    <div class="details-invalid" *ngIf="!status && invoiceDetails.invalid">
+      <p class="invalid">Detaliile facturii sunt incomplete !</p>
+    </div>
+    <div class="closed-view" *ngIf="!status && invoiceDetails.valid">
+      <p class="label">Nr. Factură</p>
+      <p class="value">{{ invoiceDetails.controls.ID.value }}</p>
+      <p class="label">Data emiterii</p>
+      <p class="value">{{ invoiceDetails.controls.IssueDate.value }}</p>
+
+      <p class="label">Termen plata</p>
+      <p class="value">
+        {{ invoiceDetails.controls.InvoicePeriod.controls.EndDate.value }}
+      </p>
+      <p class="label closed-view-label">Tip factura</p>
+      <p class="value">{{ invoiceDetails.controls.InvoiceTypeCode.value }}</p>
+    </div>
+    <div class="opened-view" *ngIf="status">
+      <form class="form" [formGroup]="invoiceDetails">
+        <label for="invoicenumber" class="label">Nr. Factură</label>
+        <input
+          type="text"
+          id="invoicenumber"
+          class="input"
+          formControlName="ID"
+        />
+        <label for="issueDate" class="label">Data emiterii</label>
+        <input
+          type="date"
+          id="issueDate"
+          class="input"
+          formControlName="IssueDate"
+        />
+        <ng-container formGroupName="InvoicePeriod">
+          <label for="startDate" class="label">De la</label>
+          <input
+            formControlName="StartDate"
+            class="date input"
+            id="startDate"
+            type="date"
+          />
+          <label for="endDate" class="label">Pana la</label>
+          <input
+            formControlName="EndDate"
+            class="date input"
+            id="endDate"
+            type="date"
+          />
+        </ng-container>
+        <label for="invoiceType" class="label">Tipul Facturii</label>
+        <select
+          class="input"
+          id="invoiceType"
+          formControlName="InvoiceTypeCode"
+        >
+          <option value="380">Factura</option>
+          <option value="384">Factura corectata</option>
+          <option value="389">Autofactura</option>
+        </select>
+
+        <label for="currency" class="label">Moneda</label>
+
+        <select
+          class="input"
+          id="currency"
+          formControlName="DocumentCurrencyCode"
+        >
+          <option *ngFor="let item of currencies" [value]="item.code">
+            {{ item.name }}
+          </option>
+        </select>
+
+        <label for="orderRef" class="label">Nr. comanda</label>
+        <input
+          formControlName="OrderReference"
+          id="orderRef"
+          type="text"
+          class="input"
+        />
+        <label for="ContractReference" class="label">Nr. contract</label>
+        <input
+          formControlName="ContractReference"
+          id="ContractReference"
+          type="text"
+          class="input"
+          formControlName="ActualDeliveryDate"
+        />
+        <label for="deliveryDate" class="label">Data livrarii</label>
+        <input type="date" id="deliveryDate" class="input" />
+        <p class="label adress">Adresa de livrare</p>
+        <div class="formatted-adress" *ngIf="adress">
+          <div *ngIf="adress.Postbox">{{ adress.Postbox }},&nbsp;</div>
+          <div>{{ adress.StreetName }}&nbsp;</div>
+          <div *ngIf="adress.BuildingNumber">
+            {{ adress.BuildingNumber }},&nbsp;
+          </div>
+          <div *ngIf="adress.CityName">{{ adress.CityName }},&nbsp;</div>
+          <div *ngIf="adress.CountrySubentity">
+            {{ adress.CountrySubentity }},&nbsp;
+          </div>
+          <div *ngIf="adress.Country.IdentificationCode">
+            {{ adress.Country.IdentificationCode }}&nbsp;
+          </div>
+          <div *ngIf="adress.PostalZone">
+            {{ adress.PostalZone }}
+          </div>
+        </div>
+        <button class="link" title="Schimbă adresa">
+          <span class="material-symbols-outlined"> border_color </span>
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

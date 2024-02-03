@@ -1,0 +1,16 @@
+.textarea {
+  outline: 1px solid var(--components-border);
+  border: none;
+  background-color: var(--input-focused);
+}
+.label {
+  width: fit-content;
+}
+.container {
+  display: grid;
+  grid-template-columns: 0.1fr 1fr;
+  background: linear-gradient(to bottom, #0000008c, transparent);
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+}

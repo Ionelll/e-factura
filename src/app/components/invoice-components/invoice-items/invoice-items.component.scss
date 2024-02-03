@@ -1,0 +1,32 @@
+.container {
+  overflow: hidden;
+  padding: 0.5rem 0;
+  margin-bottom: 10rem;
+}
+.header-label {
+  grid-column: auto;
+}
+.row {
+  background-color: var(--components-border);
+}
+.content {
+  background-color: rgb(0 0 0 / 55%);
+  display: grid;
+  grid-template-columns: 0.1fr 0.8fr 0.1fr repeat(4, 0.2fr) 0.1fr;
+
+  row-gap: 1em;
+  padding: 1em;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem;
+}
+.link {
+  padding: 0;
+  margin: auto;
+  margin-bottom: 0;
+}
+.add-row {
+  grid-column: 7;
+}
