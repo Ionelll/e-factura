@@ -1,8 +1,8 @@
 export interface Bank {
-  ID: string;
-  CurrencyCode?: string;
+  ID: string | null;
+  CurrencyCode?: string | null;
   FinancialInstitution?: {
-    Name?: string;
-    ID?: string;
+    Name?: string | null;
+    ID?: string | null;
   };
 }

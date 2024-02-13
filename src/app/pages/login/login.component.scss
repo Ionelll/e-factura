@@ -1,0 +1,38 @@
+.ng-invalid:not(form) {
+  border-bottom: 1px solid red;
+}
+.ng-untouched:not(form) {
+  border-bottom: 1px solid white;
+}
+
+.header {
+  padding: 1rem;
+}
+.wrapper {
+  display: flex;
+  padding-top: 10rem;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--toolbar);
+  margin: auto;
+  width: 40%;
+}
+.form {
+  padding: 3rem;
+  align-items: center;
+  display: grid;
+  row-gap: 1em;
+  column-gap: 2rem;
+  grid-template-columns: 0.2fr 1fr;
+}
+.footer {
+  display: flex;
+  padding: 3rem;
+  padding-top: 0;
+  justify-content: flex-end;
+}
+.button {
+  padding: 0.5rem 2rem;
+}

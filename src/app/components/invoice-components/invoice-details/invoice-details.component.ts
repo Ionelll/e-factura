@@ -20,6 +20,8 @@ import {
   query,
 } from '@angular/animations';
 import { Adress } from '../../../models/adress.model';
+import { AdressService } from '../../../services/adress.service';
+import { InvoiceService } from '../../../services/invoice.service';
 
 @Component({
   selector: 'app-invoice-details',
@@ -29,7 +31,7 @@ import { Adress } from '../../../models/adress.model';
   styleUrl: './invoice-details.component.scss',
   animations: [
     trigger('grow', [
-      state('true', style({ height: '32rem' })),
+      state('true', style({ height: '30rem' })),
       state('false', style({ height: '6rem' })),
       transition('false <=> true', [
         group([
@@ -57,9 +59,14 @@ import { Adress } from '../../../models/adress.model';
   ],
 })
 export class InvoiceDetailsComponent implements OnInit {
+  constructor(
+    private adressService: AdressService,
+    private invoiceService: InvoiceService
+  ) {}
   public duePeriod = 30;
   public currencies = CurrencySymbolMap;
   private startDateSub = new Subscription();
+  private adressSub = new Subscription();
   public adress: Adress;
   public status = false;
   public invoiceDetails = new FormGroup({
@@ -74,7 +81,9 @@ export class InvoiceDetailsComponent implements OnInit {
         Validators.required
       ),
       EndDate: new FormControl(
-        new Date(new Date().setDate(new Date().getDate() + 30))
+        new Date(
+          new Date().setDate(new Date().getDate() + this.duePeriod || 30)
+        )
           .toISOString()
           .split('T')[0],
 
@@ -88,7 +97,7 @@ export class InvoiceDetailsComponent implements OnInit {
     ActualDeliveryDate: new FormControl(''),
     DeliveryLocation: new FormGroup({
       Adress: new FormGroup({
-        Postbox: new FormControl(''),
+        PostBox: new FormControl(''),
         StreetName: new FormControl(''),
         BuildingNumber: new FormControl(''),
         CityName: new FormControl(''),
@@ -113,6 +122,19 @@ export class InvoiceDetailsComponent implements OnInit {
       );
     }
   }
+  openModal() {
+    console.log('hi');
+    this.adressService.openModal(
+      'Delivery',
+      this.invoiceDetails.controls.DeliveryLocation.controls.Adress.getRawValue()
+    );
+  }
+
+  changeCurrency() {
+    this.invoiceService.setCurrency(
+      this.invoiceDetails.controls.DocumentCurrencyCode.getRawValue() || ''
+    );
+  }
   ngOnInit(): void {
     this.startDateSub =
       this.invoiceDetails.controls.InvoicePeriod.controls.StartDate.valueChanges.subscribe(
@@ -129,5 +151,16 @@ export class InvoiceDetailsComponent implements OnInit {
           }
         }
       );
+    this.adressSub = this.adressService
+      .subscribeCloseModal()
+      .subscribe((res) => {
+        if (res.id === 'Delivery') {
+          this.invoiceDetails.controls.DeliveryLocation.controls.Adress.reset();
+          this.invoiceDetails.controls.DeliveryLocation.controls.Adress.patchValue(
+            res.PostalAdress
+          );
+          this.adress = res.PostalAdress;
+        }
+      });
   }
 }

@@ -10,8 +10,8 @@ export class ApiService {
   constructor(private http: HttpClient) {}
 
   private customerList = new Subject<string[]>();
-  private user = new BehaviorSubject<User>({});
-  public customer = new BehaviorSubject<Company>({});
+  public customer = new Subject<Company>();
+
   setCustomerNamesList(value: string) {
     console.log('hi');
     this.http

@@ -1,27 +1,33 @@
 .ng-invalid:not(form) {
   border-bottom: 1px solid red;
 }
+
 .invalid {
   text-align: center;
-  height: 100%;
-  margin-top: 2rem;
   font-family: "Poppins", sans-serif;
   color: white;
+  margin-top: 2rem;
 }
 .closed-view {
   position: relative;
   display: grid;
+
   grid-template-columns: 1fr 0.2fr 0.3fr;
   align-items: center;
   // padding: 1rem 1rem 0 1rem;
   gap: 0.5rem;
-  padding: 1rem 1rem 0 1rem;
+  padding-top: 1rem;
+  text-align: center;
   .label {
     grid-column: 2;
+    text-align: end;
   }
   .value {
     grid-column: 3;
+    text-align: start;
     font-family: "Poppins", sans-serif;
+    font-weight: 200;
+    letter-spacing: 1px;
   }
   .customer-name {
     font-family: "Poppins", sans-serif;
@@ -31,6 +37,9 @@
     margin-bottom: 0.3rem;
     grid-row: 1/3;
     grid-column: 1;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
   }
 }
 
@@ -46,34 +55,38 @@
   padding-right: 1rem;
   align-items: center;
   padding: 0.5rem;
-  position: relative;
 }
-
 .form {
-  position: relative;
   display: grid;
   grid-template-columns: 0.2fr 1fr;
   padding: 1rem;
-  row-gap: 1em;
+  gap: 1em;
   align-items: center;
-}
-.label {
-  grid-column: 1;
-}
-.material-symbols-outlined {
-  cursor: pointer;
 }
 .footer {
   display: flex;
   justify-content: space-between;
-  padding: 0.5rem 2rem;
+  padding: 0.3em 2rem;
+  align-items: center;
+}
+.button {
+  box-shadow: none;
+  border-radius: 0;
+  background-color: transparent;
+  color: white;
+  border: 1px solid var(--components-border);
+
+  padding: 0.5em 1.5em;
+  &:hover {
+    background-color: var(--components-border);
+  }
 }
 .button-right {
   display: flex;
   gap: 1rem;
 }
 
-.search {
+.search-container {
   width: 100%;
 }
 .contact {
@@ -88,4 +101,5 @@
 .edit-adress-container {
   display: flex;
   justify-content: space-between;
+  width: 100%;
 }

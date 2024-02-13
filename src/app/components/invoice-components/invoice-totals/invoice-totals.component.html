@@ -1,1 +1,34 @@
-<p>invoice-totals works!</p>
+<div class="netto">
+  <div class="item">
+    <label class="label" for="netto">Netto</label>
+    <input
+      disabled
+      type="text"
+      id="netto"
+      class="input"
+      [value]="netto | currency : currency"
+      disabled
+    />
+  </div>
+  <div class="item">
+    <label class="label" for="vat">VAT</label>
+    <input
+      disabled
+      type="text"
+      id="vat"
+      class="input"
+      [value]="vat | currency : currency"
+    />
+  </div>
+  <div class="item">
+    <label class="label" for="total">Total</label>
+    <input
+      disabled
+      type="text"
+      id="total"
+      class="input"
+      [value]="total | currency : currency"
+      disabled
+    />
+  </div>
+</div>

@@ -1,1 +1,83 @@
-<p>my-company works!</p>
+<form [formGroup]="Company" class="container">
+  <ng-container formGroupName="PartyName">
+    <label for="name" class="label">Nume</label>
+    <input type="text" id="name" class="input" formControlName="Name" />
+  </ng-container>
+  <ng-container formGroupName="PartyLegalEntity">
+    <label for="companyRegistration" class="label">Nr. înregistrare</label>
+    <input
+      type="text"
+      class="input"
+      id="companyRegistration"
+      formControlName="CompanyLegalForm"
+    />
+  </ng-container>
+  <ng-container formGroupName="PartyTaxScheme">
+    <label for="companyId" class="label">CUI</label>
+    <input
+      type="text"
+      class="input"
+      id="companyId"
+      formControlName="CompanyID"
+    />
+  </ng-container>
+  <label class="label">Adresa</label>
+  <div class="edit-adress-container">
+    <div class="formatted-adress">
+      <div *ngIf="Company.controls.PostalAdress.controls.PostBox.value">
+        {{ Company.controls.PostalAdress.controls.PostBox.value }},&nbsp;
+      </div>
+      <div>
+        {{ Company.controls.PostalAdress.controls.StreetName.value }}&nbsp;
+      </div>
+      <div *ngIf="Company.controls.PostalAdress.controls.BuildingNumber.value">
+        {{ Company.controls.PostalAdress.controls.BuildingNumber.value }},&nbsp;
+      </div>
+      <div *ngIf="Company.controls.PostalAdress.controls.CityName.value">
+        {{ Company.controls.PostalAdress.controls.CityName.value }},&nbsp;
+      </div>
+      <div
+        *ngIf="Company.controls.PostalAdress.controls.CountrySubentity.value"
+      >
+        {{
+          Company.controls.PostalAdress.controls.CountrySubentity.value
+        }},&nbsp;
+      </div>
+      <div
+        *ngIf="
+          Company.controls.PostalAdress.controls.Country.controls
+            .IdentificationCode.value
+        "
+      >
+        {{
+          Company.controls.PostalAdress.controls.Country.controls
+            .IdentificationCode.value
+        }}&nbsp;
+      </div>
+      <div *ngIf="Company.controls.PostalAdress.controls.PostalZone.value">
+        {{ Company.controls.PostalAdress.controls.PostalZone.value }}
+      </div>
+    </div>
+    <button
+      class="link adress-link"
+      title="Schimbă adresa"
+      (click)="openModal()"
+    >
+      <span class="material-symbols-outlined"> border_color </span>
+    </button>
+  </div>
+  <p class="label contact">Contact</p>
+  <ng-container formGroupName="Contact">
+    <label for="numeContact" class="label">Nume</label>
+    <input type="text" id="numeContact" class="input" formControlName="Name" />
+    <label for="phone" class="label">Telefon</label>
+    <input type="text" id="phone" class="input" formControlName="Telephone" />
+    <label for="email" class="label">E-mail</label>
+    <input
+      type="text"
+      class="input"
+      id="email"
+      formControlName="ElectronicMail"
+    />
+  </ng-container>
+</form>

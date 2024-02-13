@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Subscription, debounceTime } from 'rxjs';
-import { ApiService } from '../../../../services/api.service';
+import { ApiService } from '../../../services/api.service';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { InvoiceService } from '../../../services/invoice.service';
 
 @Component({
   selector: 'app-customer-search',
@@ -12,7 +13,10 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
   styleUrl: './customer-search.component.scss',
 })
 export class CustomerSearchComponent implements OnInit, OnDestroy {
-  constructor(private apiService: ApiService) {}
+  constructor(
+    private apiService: ApiService,
+    private invoiceService: InvoiceService
+  ) {}
   public search = new FormGroup({
     input: new FormControl(''),
   });

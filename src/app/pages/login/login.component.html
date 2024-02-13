@@ -1,0 +1,21 @@
+<div class="wrapper">
+  <div class="container">
+    <div class="header">
+      <p class="title">Login</p>
+    </div>
+    <form class="form" [formGroup]="userInput" (keydown.enter)="login()">
+      <label for="email" class="label">e-mail</label>
+      <input type="email" class="input" id="email" formControlName="email" />
+      <label for="password" class="label">password</label>
+      <input
+        type="password"
+        class="input"
+        id="password"
+        formControlName="password"
+      />
+    </form>
+    <div class="footer">
+      <button class="button" (click)="login()">Login</button>
+    </div>
+  </div>
+</div>

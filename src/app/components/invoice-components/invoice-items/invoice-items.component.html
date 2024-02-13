@@ -30,6 +30,7 @@
             class="input"
             cdkTextareaAutosize
             cdkAutosizeMinRows="1"
+            #autosize="cdkTextareaAutosize"
             auto2="matAutocomplete"
             formControlName="Name"
             (focus)="manageAutocompleteInArray(i)"
@@ -58,7 +59,7 @@
         <ng-container formGroupName="Price">
           <select class="input" formControlName="UnitCode">
             <option *ngFor="let item of units" [value]="item.CommonCode">
-              {{ item.name }}
+              {{ item.symbol || item.CommonCode }}
             </option>
           </select>
           <input class="input" type="number" formControlName="PriceAmount" />
@@ -69,6 +70,7 @@
           readonly
           type="text"
           formControlName="LineExtensionAmount"
+          [value]="lineTotal(i) | currency : currentCurrency"
         />
       </ng-container>
 

@@ -1,9 +1,9 @@
-<div class="container" (click)="status = true" (mouseleave)="status = false">
+<div class="container" (mouseleave)="status = false">
   <div class="header">
     <p class="title">CLIENT</p>
-    <app-customer-search class="search"></app-customer-search>
+    <app-customer-search class="search-container"></app-customer-search>
   </div>
-  <div class="content" [@grow]="status ? true : false">
+  <div class="content" [@grow]="status ? true : false" (click)="status = true">
     <div class="invalid-customer">
       <p class="invalid" *ngIf="!status && !recieved">
         Caută client sau adauga unul nou!
@@ -17,11 +17,11 @@
         {{ Customer.controls.PartyName.controls.Name.value }}
       </p>
 
-      <p class="label">Nr. înregistrare</p>
+      <p class="label">Nr. înregistrare:</p>
       <p class="value">
         {{ Customer.controls.PartyLegalEntity.controls.CompanyLegalForm.value }}
       </p>
-      <p class="label">CUI</p>
+      <p class="label">CUI:</p>
       <p class="value">
         {{ Customer.controls.PartyTaxScheme.controls.CompanyID.value }}
       </p>
@@ -33,30 +33,35 @@
           <input type="text" id="name" class="input" formControlName="Name" />
         </ng-container>
         <ng-container formGroupName="PartyLegalEntity">
-          <label for="companyRegistration" class="label"
+          <label for="CompanyRegistration" class="label"
             >Nr. înregistrare</label
           >
           <input
             type="text"
             class="input"
-            id="companyRegistration"
+            id="CustomerRegistration"
             formControlName="CompanyLegalForm"
           />
         </ng-container>
         <ng-container formGroupName="PartyTaxScheme">
-          <label for="companyId" class="label">CUI</label>
+          <label for="CompanyId" class="label">CUI</label>
           <input
             type="text"
             class="input"
-            id="companyId"
+            id="CompanyId"
             formControlName="CompanyID"
           />
         </ng-container>
         <label class="label">Adresa</label>
         <div class="edit-adress-container">
-          <div class="formatted-adress">
-            <div *ngIf="Customer.controls.PostalAdress.controls.Postbox.value">
-              {{ Customer.controls.PostalAdress.controls.Postbox.value }},&nbsp;
+          <div
+            [ngClass]="{
+              'formatted-adress': true,
+              'ng-invalid': Customer.controls.PostalAdress.invalid
+            }"
+          >
+            <div *ngIf="Customer.controls.PostalAdress.controls.PostBox.value">
+              {{ Customer.controls.PostalAdress.controls.PostBox.value }},&nbsp;
             </div>
             <div>
               {{
@@ -103,7 +108,11 @@
               {{ Customer.controls.PostalAdress.controls.PostalZone.value }}
             </div>
           </div>
-          <button class="link adress-link" title="Schimbă adresa">
+          <button
+            class="link adress-link"
+            title="Schimbă adresa"
+            (click)="openModal()"
+          >
             <span class="material-symbols-outlined"> border_color </span>
           </button>
         </div>
@@ -135,7 +144,7 @@
     </div>
   </div>
   <div class="footer" *ngIf="status">
-    <button class="button">Client nou</button>
+    <button class="button" (click)="clearForm()">Client nou</button>
     <div class="button-right">
       <button class="button">Salvează</button>
       <button class="button">Renuntă</button>

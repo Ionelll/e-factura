@@ -1,9 +1,8 @@
 .form {
-  position: relative;
   display: grid;
   grid-template-columns: 0.2fr 1fr;
   padding: 1rem;
-  row-gap: 1rem;
+  gap: 1em;
   align-items: center;
 }
 .header {
@@ -42,4 +41,12 @@
 
 .ng-invalid:not(form) {
   border-bottom: 1px solid red;
+}
+.edit-adress-container {
+  display: flex;
+  justify-content: space-between;
+}
+.adress-link {
+  padding: 0.1rem;
+  display: flex;
 }

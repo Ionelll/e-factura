@@ -1,1 +1,52 @@
-<p>adress-modal works!</p>
+<div
+  [ngClass]="{
+    opened: id === 'Customer' || id === 'Delivery' || id === 'Supplier',
+    closed: !id || id.length <= 0
+  }"
+  (click)="outsideClick($event)"
+>
+  <form [formGroup]="PostalAdress" class="container">
+    <div class="header">
+      <p class="title">ADRESA</p>
+      <button (click)="closeModal()" class="close">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <input type="text" class="search" id="search" #search />
+    <div class="body">
+      <label for="PostBox" class="label">Cutie postala</label>
+      <input type="text" id="PostBox" class="input" formControlName="PostBox" />
+      <label class="label" for="StreetName">Strada</label>
+      <input class="input" type="text" formControlName="StreetName" />
+      <label class="label" for="BuildingNumber">Nr</label>
+      <input class="input" type="text" formControlName="BuildingNumber" />
+      <label class="label" for="CityName">Oras</label>
+      <input class="input" type="text" formControlName="CityName" />
+      <label class="label" for="CountrySubentity">Cod Judet</label>
+      <select
+        id="CountrySubentity"
+        class="input"
+        formControlName="CountrySubentity"
+      >
+        <option *ngFor="let item of subdivision" [value]="item.code">
+          {{ item.name }}
+        </option>
+      </select>
+      <ng-container formGroupName="Country">
+        <label class="label" for="IdentificationCode">Cod Tara</label>
+        <input
+          class="input"
+          type="text"
+          value="RO"
+          formControlName="IdentificationCode"
+        />
+      </ng-container>
+      <label class="label" for="PostalZone">Cod Postal</label>
+      <input class="input" type="text" formControlName="PostalZone" />
+    </div>
+    <div class="actions">
+      <button (click)="returnForm()" class="button">Confirma</button>
+      <button (click)="closeModal()" class="button">Renunta</button>
+    </div>
+  </form>
+</div>

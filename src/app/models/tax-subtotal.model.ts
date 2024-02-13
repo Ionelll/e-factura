@@ -1,11 +1,11 @@
 export interface TaxSubtotal {
   TaxSubtotal: {
-    TaxableAmount: string;
+    TaxableAmount: string | null;
     TaxCategory: {
-      ID: string;
-      Percent: string;
+      ID: string | null;
+      Percent: string | null;
       TaxScheme: {
-        ID: string;
+        ID: string | null;
       };
     };
   };

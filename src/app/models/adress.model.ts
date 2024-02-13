@@ -1,9 +1,9 @@
 export interface Adress {
-  Postbox: string | null;
-  StreetName: string;
+  PostBox: string | null;
+  StreetName: string | null;
   BuildingNumber: string | null;
-  CityName: string;
+  CityName: string | null;
   PostalZone: string | null;
   CountrySubentity: string | null;
-  Country: { IdentificationCode: string };
+  Country: { IdentificationCode: string | null };
 }

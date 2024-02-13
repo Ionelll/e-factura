@@ -7,16 +7,16 @@
       <p class="invalid">Detaliile facturii sunt incomplete !</p>
     </div>
     <div class="closed-view" *ngIf="!status && invoiceDetails.valid">
-      <p class="label">Nr. Factură</p>
+      <p class="label">Nr. Factură:</p>
       <p class="value">{{ invoiceDetails.controls.ID.value }}</p>
-      <p class="label">Data emiterii</p>
+      <p class="label">Data emiterii:</p>
       <p class="value">{{ invoiceDetails.controls.IssueDate.value }}</p>
 
-      <p class="label">Termen plata</p>
+      <p class="label">Termen plata:</p>
       <p class="value">
         {{ invoiceDetails.controls.InvoicePeriod.controls.EndDate.value }}
       </p>
-      <p class="label closed-view-label">Tip factura</p>
+      <p class="label closed-view-label">Tip factura:</p>
       <p class="value">{{ invoiceDetails.controls.InvoiceTypeCode.value }}</p>
     </div>
     <div class="opened-view" *ngIf="status">
@@ -68,6 +68,7 @@
           class="input"
           id="currency"
           formControlName="DocumentCurrencyCode"
+          (change)="changeCurrency()"
         >
           <option *ngFor="let item of currencies" [value]="item.code">
             {{ item.name }}
@@ -91,27 +92,91 @@
         />
         <label for="deliveryDate" class="label">Data livrarii</label>
         <input type="date" id="deliveryDate" class="input" />
-        <p class="label adress">Adresa de livrare</p>
-        <div class="formatted-adress" *ngIf="adress">
-          <div *ngIf="adress.Postbox">{{ adress.Postbox }},&nbsp;</div>
-          <div>{{ adress.StreetName }}&nbsp;</div>
-          <div *ngIf="adress.BuildingNumber">
-            {{ adress.BuildingNumber }},&nbsp;
+
+        <label class="label adress">Adresa de livrare</label>
+        <div class="edit-adress-container">
+          <div class="formatted-adress">
+            <div
+              *ngIf="
+                invoiceDetails.controls.DeliveryLocation.controls.Adress
+                  .controls.PostBox.value
+              "
+            >
+              {{
+                invoiceDetails.controls.DeliveryLocation.controls.Adress
+                  .controls.PostBox.value
+              }},&nbsp;
+            </div>
+            <div>
+              {{
+                invoiceDetails.controls.DeliveryLocation.controls.Adress
+                  .controls.StreetName.value
+              }}&nbsp;
+            </div>
+            <div
+              *ngIf="
+                invoiceDetails.controls.DeliveryLocation.controls.Adress
+                  .controls.BuildingNumber.value
+              "
+            >
+              {{
+                invoiceDetails.controls.DeliveryLocation.controls.Adress
+                  .controls.BuildingNumber.value
+              }},&nbsp;
+            </div>
+            <div
+              *ngIf="
+                invoiceDetails.controls.DeliveryLocation.controls.Adress
+                  .controls.CityName.value
+              "
+            >
+              {{
+                invoiceDetails.controls.DeliveryLocation.controls.Adress
+                  .controls.CityName.value
+              }},&nbsp;
+            </div>
+            <div
+              *ngIf="
+                invoiceDetails.controls.DeliveryLocation.controls.Adress
+                  .controls.CountrySubentity.value
+              "
+            >
+              {{
+                invoiceDetails.controls.DeliveryLocation.controls.Adress
+                  .controls.CountrySubentity.value
+              }},&nbsp;
+            </div>
+            <div
+              *ngIf="
+                invoiceDetails.controls.DeliveryLocation.controls.Adress
+                  .controls.Country.controls.IdentificationCode.value
+              "
+            >
+              {{
+                invoiceDetails.controls.DeliveryLocation.controls.Adress
+                  .controls.Country.controls.IdentificationCode.value
+              }}&nbsp;
+            </div>
+            <div
+              *ngIf="
+                invoiceDetails.controls.DeliveryLocation.controls.Adress
+                  .controls.PostalZone.value
+              "
+            >
+              {{
+                invoiceDetails.controls.DeliveryLocation.controls.Adress
+                  .controls.PostalZone.value
+              }}
+            </div>
           </div>
-          <div *ngIf="adress.CityName">{{ adress.CityName }},&nbsp;</div>
-          <div *ngIf="adress.CountrySubentity">
-            {{ adress.CountrySubentity }},&nbsp;
-          </div>
-          <div *ngIf="adress.Country.IdentificationCode">
-            {{ adress.Country.IdentificationCode }}&nbsp;
-          </div>
-          <div *ngIf="adress.PostalZone">
-            {{ adress.PostalZone }}
-          </div>
+          <button
+            class="link adress-link"
+            title="Schimbă adresa"
+            (click)="openModal()"
+          >
+            <span class="material-symbols-outlined"> border_color </span>
+          </button>
         </div>
-        <button class="link" title="Schimbă adresa">
-          <span class="material-symbols-outlined"> border_color </span>
-        </button>
       </form>
     </div>
   </div>

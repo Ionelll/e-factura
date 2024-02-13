@@ -5,44 +5,44 @@ import { invoiceLine } from './invoiceLine.model';
 import { TaxSubtotal } from './tax-subtotal.model';
 
 export interface Invoice {
-  _id?: string;
+  _id?: string | null;
   Invoice: {
-    InvoiceTypeCode: string;
-    ID: string;
-    IssueDate: string;
+    InvoiceTypeCode: string | null;
+    ID: string | null;
+    IssueDate: string | null;
     InvoicePeriod: {
-      StartDate: string;
-      EndDate: string;
+      StartDate: string | null;
+      EndDate: string | null;
     };
-    Note: string;
-    DocumentCurrencyCode: string;
-    OrderReference?: { ID: string };
-    ContractDocumentReference?: { ID: string; DocumentType: string };
+    Note: string | null;
+    DocumentCurrencyCode: string | null;
+    OrderReference?: { ID: string | null };
+    ContractDocumentReference?: { ID: string | null };
     AccountingSupplierParty: Company;
     AccountingCustomerParty: Company;
     Delivery?: {
-      ActualDeliveryDate: string;
+      ActualDeliveryDate: string | null;
       DeliveryLocation: {
         Adress: Adress;
       };
     };
     PaymentMeans: {
-      PaymentCode: string;
-      PaymentID: string;
+      PaymentCode: string | null;
+      PaymentID: string | null;
       PayeeFinancialAccount: Bank;
     };
     PaymentTerms: {
-      Note: string;
+      Note: string | null;
     };
     TaxTotal: {
-      TaxAmout: string;
+      TaxAmout: string | null;
       ApplyedTaxes: TaxSubtotal[];
     };
     LegalMonetaryTotal: {
-      TaxExclusiveAmount: string;
-      TaxInclusiveAmount: string;
-      LineExtensionAmount: string;
-      PayableAmount: string;
+      TaxExclusiveAmount: string | null;
+      TaxInclusiveAmount: string | null;
+      LineExtensionAmount: string | null;
+      PayableAmount: string | null;
     };
     Lines: invoiceLine[];
   };

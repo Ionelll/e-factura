@@ -3,11 +3,18 @@ import { InvoicePageComponent } from './pages/invoice-page/invoice-page.componen
 import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
 import { HelpComponent } from './pages/help/help.component';
 import { ContactComponent } from './pages/contact/contact.component';
+import { AuthGuard } from './services/auth.guard';
+import { LoginComponent } from './pages/login/login.component';
 
 export const routes: Routes = [
   { path: 'invoice', component: InvoicePageComponent },
-  { path: 'dashboard', component: DashboardPageComponent },
+  {
+    path: 'dashboard',
+    component: DashboardPageComponent,
+    canActivate: [AuthGuard],
+  },
   { path: 'help', component: HelpComponent },
   { path: 'contact', component: ContactComponent },
+  { path: 'login', component: LoginComponent },
   { path: '**', redirectTo: 'invoice' },
 ];

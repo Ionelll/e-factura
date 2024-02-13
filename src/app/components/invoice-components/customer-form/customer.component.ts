@@ -17,18 +17,26 @@ import {
   state,
 } from '@angular/animations';
 import { Subscription } from 'rxjs';
-import { Company } from '../../../../models/company.model';
-import { ApiService } from '../../../../services/api.service';
+import { Company } from '../../../models/company.model';
+import { ApiService } from '../../../services/api.service';
+import { AdressService } from '../../../services/adress.service';
+import { MyCompanyComponent } from '../../dashboard-components/my-company/my-company.component';
+import { InvoiceService } from '../../../services/invoice.service';
 
 @Component({
   selector: 'app-customer',
   standalone: true,
-  imports: [CustomerSearchComponent, ReactiveFormsModule, CommonModule],
+  imports: [
+    CustomerSearchComponent,
+    ReactiveFormsModule,
+    CommonModule,
+    MyCompanyComponent,
+  ],
   templateUrl: './customer.component.html',
   styleUrl: './customer.component.scss',
   animations: [
     trigger('grow', [
-      state('true', style({ height: '25rem' })),
+      state('true', style({ height: '24rem' })),
       state('false', style({ height: '6rem' })),
       transition('false <=> true', [
         group([
@@ -38,22 +46,24 @@ import { ApiService } from '../../../../services/api.service';
             ':enter,:leave',
             [
               style({
-                position: 'absolute',
                 width: '100%',
                 top: 0,
               }),
             ],
             { optional: true }
           ),
+          query(':leave', [style({ position: 'absolute' })], {
+            optional: true,
+          }),
           query(
             ':enter',
             [
               style({ opacity: 0 }),
-              animate('0.3s ease', style({ opacity: 1 })),
+              animate('0.1s ease', style({ opacity: 1 })),
             ],
             { optional: true }
           ),
-          query(':leave', [animate('0.3s ease', style({ opacity: 0 }))], {
+          query(':leave', [animate('0.1s ease', style({ opacity: 0 }))], {
             optional: true,
           }),
         ]),
@@ -62,7 +72,11 @@ import { ApiService } from '../../../../services/api.service';
   ],
 })
 export class CustomerComponent implements OnInit, OnDestroy {
-  constructor(private apiService: ApiService) {}
+  constructor(
+    private apiService: ApiService,
+    private adressService: AdressService,
+    private invoiceService: InvoiceService
+  ) {}
 
   public Customer = new FormGroup({
     PartyName: new FormGroup({
@@ -79,7 +93,7 @@ export class CustomerComponent implements OnInit, OnDestroy {
       CompanyLegalForm: new FormControl('', Validators.required),
     }),
     PostalAdress: new FormGroup({
-      Postbox: new FormControl(''),
+      PostBox: new FormControl(''),
       StreetName: new FormControl('', Validators.required),
       BuildingNumber: new FormControl(''),
       CityName: new FormControl('', Validators.required),
@@ -98,20 +112,44 @@ export class CustomerComponent implements OnInit, OnDestroy {
   public status = false;
   public recieved = false;
   private customerSub = new Subscription();
-
+  private adressSub = new Subscription();
+  private customerId: string;
   ngOnInit(): void {
-    this.customerSub = this.apiService.getCustomer().subscribe((res) => {
-      if (res?.Party) {
-        this.Customer.setValue(res.Party);
-        this.Customer.controls.PartyLegalEntity.controls.RegistrationName.setValue(
-          res.Party.PartyName.Name
-        );
-        console.log(this.Customer.value);
-        this.recieved = true;
-      }
-    });
+    this.customerSub = this.apiService
+      .getCustomer()
+      .subscribe((res: Company) => {
+        if (res?.Party && res?._id) {
+          this.customerId = res?._id;
+          this.Customer.reset();
+          this.Customer.patchValue(res.Party);
+          this.Customer.controls.PartyLegalEntity.controls.RegistrationName.setValue(
+            res.Party.PartyName.Name
+          );
+          this.invoiceService.setCustomer(res.Party);
+          this.recieved = true;
+        }
+      });
+    this.adressSub = this.adressService
+      .subscribeCloseModal()
+      .subscribe((res) => {
+        if (res.id === 'Customer') {
+          this.Customer.controls.PostalAdress.reset();
+          this.Customer.controls.PostalAdress.patchValue(res.PostalAdress);
+        }
+      });
   }
   ngOnDestroy(): void {
     this.customerSub.unsubscribe();
+    this.adressSub.unsubscribe();
+  }
+
+  openModal() {
+    this.adressService.openModal(
+      'Customer',
+      this.Customer.controls.PostalAdress.getRawValue()
+    );
+  }
+  clearForm() {
+    this.Customer.reset();
   }
 }
