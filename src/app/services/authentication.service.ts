@@ -28,9 +28,24 @@ export class AuthService {
           }
         });
   }
-
+register(userInput: { email: string | null; password: string | null;confirmPassword: string | null }) {
+    if (userInput.email && userInput.password === userInput.confirmPassword){   
+     const {confirmPassword,...registerData}=userInput
+       this.http
+        .post<{ message: string }>(`${environment.api_url}/register`, registerData)
+        .subscribe((res) => {
+          if (res) {
+            this.router.navigateByUrl('/login');
+          }
+        })
+    }
+  }
   getUser() {
     return this.user.asObservable();
+  }
+
+  getLoginStatus() {
+    return this.loginStatus.asObservable();
   }
 
   setLoginStatus() {
