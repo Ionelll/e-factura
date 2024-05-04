@@ -4,7 +4,6 @@ import { User } from '../models/user.model';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environment';
 import { Router } from '@angular/router';
-import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -29,23 +28,29 @@ export class AuthService {
           }
         });
   }
+
   getUser() {
     return this.user.asObservable();
   }
 
   setLoginStatus() {
     this.http
-      .get<boolean>(`${environment.api_url}/isloggedin`)
+      .get<{ message: string }>(`${environment.api_url}/isloggedin`)
       .subscribe((res) => {
         console.log(res);
-        this.loginStatus.next(res);
+        if (res.message === 'Token passed') this.loginStatus.next(true);
+        else {
+          this.logout();
+          this.loginStatus.next(false);
+        }
       });
   }
 
-  checkIsLoggedIn() {
-    return this.loginStatus.value;
-  }
   getToken() {
     return localStorage.getItem('token');
+  }
+  logout() {
+    this.http.post(`${environment.api_url}/logout`, undefined);
+    localStorage.clear();
   }
 }

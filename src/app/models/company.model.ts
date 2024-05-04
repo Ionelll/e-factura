@@ -19,4 +19,13 @@ export interface Company {
       ElectronicMail: string | null;
     };
   };
+  PayeeFinancialAccount?: {
+    ID: string;
+    CurrencyCode: string;
+    FinancialInstitution: {
+      ID: string;
+      Name: string;
+    };
+  };
+  Logo?: string | File;
 }
