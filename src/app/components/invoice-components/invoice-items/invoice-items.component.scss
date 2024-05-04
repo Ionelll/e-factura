@@ -5,6 +5,7 @@
 }
 .header-label {
   grid-column: auto;
+  text-align: center;
 }
 .row {
   background-color: var(--components-border);
@@ -29,4 +30,11 @@
 }
 .add-row {
   grid-column: 5;
+}
+
+.input {
+  text-align: center;
+}
+.textarea {
+  padding-left: 2rem;
 }

@@ -7,8 +7,8 @@
 }
 .header {
   display: flex;
+  // border-bottom: 1px solid #06bbc17d;
 
-  padding: 0.8rem;
   align-items: center;
 }
 
@@ -21,7 +21,7 @@
   height: 100%;
   margin-top: 2rem;
   font-family: "Poppins", sans-serif;
-  color: white;
+  color: var(--danger);
 }
 .closed-view {
   margin-top: 0.5rem;
@@ -32,6 +32,7 @@
   padding: 1rem;
   .value {
     font-family: "Poppins", sans-serif;
+    color: var(--text);
   }
   .label {
     grid-column: auto;

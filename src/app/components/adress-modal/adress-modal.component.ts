@@ -96,7 +96,7 @@ export class AdressModalComponent {
   }
 
   public subdivision = roSubdivisionMap;
-  private openModalSub = new Subscription();
+  private subscriptions = new Subscription();
 
   PostalAdress = new FormGroup({
     PostBox: new FormControl(''),
@@ -113,12 +113,12 @@ export class AdressModalComponent {
   public id: string | null | undefined;
 
   ngOnInit(): void {
-    this.openModalSub = this.adressService
-      .subscribeOpenModal()
-      .subscribe((res) => {
+    this.subscriptions.add(
+      this.adressService.subscribeOpenModal().subscribe((res) => {
         this.id = res.id;
         this.PostalAdress.patchValue(res.PostalAdress);
-      });
+      })
+    );
   }
 
   closeModal() {
@@ -143,7 +143,7 @@ export class AdressModalComponent {
   }
 
   ngOnDestroy(): void {
-    this.openModalSub.unsubscribe();
+    this.subscriptions.unsubscribe();
   }
 
   ngAfterViewInit(): void {}

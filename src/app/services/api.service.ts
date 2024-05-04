@@ -35,4 +35,5 @@ export class ApiService {
   getCustomer() {
     return this.customer.asObservable();
   }
+  updateCompany(company: FormData) {}
 }

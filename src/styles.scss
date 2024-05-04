@@ -37,28 +37,30 @@ p {
   --button: rgb(196 230 255);
   --background: #fcffea;
   --input-focused: #00000034;
-  --components: #0000001d;
-  --components-border: #ffffff59;
+  --components: #ffffff00;
+  --components-border: #ffffff22;
   --logo: #f4edea;
   --label: #0063cd;
   --actions: #06bcc1;
   --actions-light: #f4edea;
   --input-border: #02020b;
+  --danger: rgb(255 55 55);
+  --text: rgb(255, 247, 224);
 }
 .container {
   background-color: var(--components);
   backdrop-filter: blur(10px);
   // border: 1px solid var(--components-border);
-  // border-radius: 10px;
-  border: 1px solid var(--components-border);
-
-  box-shadow: 2px 2px 10px 1px #0000004e;
+  border-radius: 5px;
+  border: 1px solid #06bbc15c;
+  padding: 0.5rem 0 0 0;
+  box-shadow: 4px 4px 10px 1px #000000ae;
 }
 .input,
 .textarea {
   font-size: 1em;
   width: 100%;
-  color: white;
+  color: var(--text);
   font-weight: 200;
   font-family: "Poppins", sans-serif;
   outline: none;
@@ -86,23 +88,6 @@ input::-webkit-inner-spin-button {
 input[type="number"] {
   appearance: none;
   -moz-appearance: textfield;
-}
-
-.search {
-  all: unset;
-  width: 90%;
-  margin: 0;
-  font-family: "Poppins", sans-serif;
-  font-size: 1em;
-  color: white;
-  border-radius: 8px;
-  box-shadow: inset 2px 2px 10px #0000002e;
-  border: 1px solid #ffffff78;
-  padding: 0.3em 0 0.3em 1em;
-}
-.search::placeholder {
-  font-style: italic;
-  color: rgba(128, 128, 128, 0.679);
 }
 
 .link {
@@ -134,7 +119,7 @@ input[type="number"] {
 .label {
   grid-column: 1;
   letter-spacing: 1px;
-  color: white;
+  color: var(--actions);
   font-family: "Roboto", sans-serif;
   font-size: 14px;
   font-weight: 200;
@@ -142,17 +127,18 @@ input[type="number"] {
   // border-bottom: 1px solid var(--input-border);
 }
 .title {
-  color: white;
+  color: var(--text);
   font-family: "Audiowide", sans-serif;
   font-size: 20px;
   letter-spacing: 2px;
+  margin-left: 2rem;
 }
 .opened-view {
   background-color: rgb(0 0 0 / 55%);
 }
 .formatted-adress {
   display: flex;
-  color: white;
+  color: var(--text);
   align-items: center;
   font-size: 1em;
   font-weight: 200;
@@ -166,5 +152,16 @@ input[type="number"] {
   }
 }
 option {
-  color: black;
+  background-color: black;
+}
+.more {
+  color: var(--actions);
+  font-size: 10px;
+  letter-spacing: 1px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  padding: 0.5rem;
+  align-items: center;
+  display: flex;
+  justify-content: center;
 }

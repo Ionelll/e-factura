@@ -1,12 +1,9 @@
 import { inject } from '@angular/core';
-import { AuthService } from './authentication.service';
 import { Router } from '@angular/router';
 export const AuthGuard = async () => {
   const router = inject(Router);
-  const authService = inject(AuthService);
-  const isLoggedIn = authService.checkIsLoggedIn();
-  console.log(isLoggedIn);
-  if (isLoggedIn) {
+  const token = localStorage.getItem('token');
+  if (token && token?.length > 0) {
     return true;
   } else {
     router.navigateByUrl('/login');
