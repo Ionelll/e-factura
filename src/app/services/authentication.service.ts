@@ -12,6 +12,9 @@ export class AuthService {
   private user = new BehaviorSubject<User | undefined>(undefined);
   private loginStatus = new BehaviorSubject<boolean>(false);
 
+  setUser(user: User) {
+    this.user.next(user);
+  }
   login(userInput: { email: string | null; password: string | null }) {
     if (userInput.email && userInput.password)
       this.http
@@ -28,18 +31,41 @@ export class AuthService {
           }
         });
   }
-
+  register(userInput: {
+    email: string | null;
+    password: string | null;
+    confirmPassword: string | null;
+  }) {
+    if (userInput.email && userInput.password === userInput.confirmPassword) {
+      const { confirmPassword, ...registerData } = userInput;
+      this.http
+        .post<{ message: string }>(
+          `${environment.api_url}/register`,
+          registerData
+        )
+        .subscribe((res) => {
+          if (res) {
+            this.router.navigateByUrl('/login');
+          }
+        });
+    }
+  }
   getUser() {
     return this.user.asObservable();
   }
 
+  getLoginStatus() {
+    return this.loginStatus.asObservable();
+  }
+
   setLoginStatus() {
     this.http
-      .get<{ message: string }>(`${environment.api_url}/isloggedin`)
+      .get<{ user: User; message: string }>(`${environment.api_url}/isloggedin`)
       .subscribe((res) => {
-        console.log(res);
-        if (res.message === 'Token passed') this.loginStatus.next(true);
-        else {
+        if (res.message === 'Token passed') {
+          this.loginStatus.next(true);
+          this.user.next(res.user);
+        } else {
           this.logout();
           this.loginStatus.next(false);
         }
