@@ -18,9 +18,10 @@ export class TokenInterceptor implements HttpInterceptor {
     console.log(token);
     if (token) {
       const authRequest = request.clone({
-        setHeaders: { authorization: token },
+        setHeaders: {
+          authorization: token,
+        },
       });
-
       return next.handle(authRequest);
     } else return next.handle(request);
   }
