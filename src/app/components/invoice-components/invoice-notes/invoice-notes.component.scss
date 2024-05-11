@@ -1,17 +1,20 @@
 .textarea {
-  outline: 1px solid var(--components-border);
+  outline: 1px solid var(--component-border);
   border: none;
   background-color: var(--input-focused);
-  font-size: 12px;
+
+  padding: 0.5rem;
 }
 .label {
   width: fit-content;
 }
 .container {
-  display: grid;
-  grid-template-columns: 0.1fr 1fr;
+  display: flex;
+  flex-direction: column;
   // background: linear-gradient(to bottom, #0000008c, transparent);
   align-items: center;
   gap: 0.5rem;
-  padding: 0.5rem;
+  padding: 2rem;
+  background-color: black;
+  border: none;
 }

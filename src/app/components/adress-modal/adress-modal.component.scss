@@ -15,13 +15,13 @@
   backdrop-filter: blur(1px) grayscale(10);
 }
 .container {
-  background-color: var(--toolbar);
   margin: auto;
   width: 50%;
   display: flex;
   flex-direction: column;
   gap: 2rem;
   padding: 1rem;
+  background-color: black;
 }
 .body {
   display: grid;
@@ -30,7 +30,7 @@
   row-gap: 1rem;
 }
 .search {
-  margin: auto;
+  margin: 0;
 }
 .header {
   display: flex;

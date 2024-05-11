@@ -59,14 +59,13 @@ export class MyCompanyComponent implements OnInit {
         Telephone: new FormControl(''),
         ElectronicMail: new FormControl(''),
       }),
-
-      PayeeFinancialAccount: new FormGroup({
+    }),
+    PayeeFinancialAccount: new FormGroup({
+      ID: new FormControl('', Validators.required),
+      CurrencyCode: new FormControl(''),
+      FinancialInstitution: new FormGroup({
         ID: new FormControl('', Validators.required),
-        CurrencyCode: new FormControl(''),
-        FinancialInstitution: new FormGroup({
-          ID: new FormControl('', Validators.required),
-          Name: new FormControl(''),
-        }),
+        Name: new FormControl(''),
       }),
     }),
     Logo: new FormControl(),
@@ -76,7 +75,8 @@ export class MyCompanyComponent implements OnInit {
     this.authService.getUser().subscribe((res) => {
       if (res && res.Party) {
         console.log(res.Party);
-        this.Company.controls.Party.patchValue(res);
+        this.Company.patchValue(res);
+        this.activeImage = res.Logo;
       }
     });
     this.adressService.subscribeCloseModal().subscribe((res) => {
@@ -88,7 +88,7 @@ export class MyCompanyComponent implements OnInit {
   }
   openModal() {
     this.adressService.openModal(
-      'Company',
+      'Supplier',
       this.Company.controls.Party.controls.PostalAdress.getRawValue()
     );
   }
@@ -113,10 +113,7 @@ export class MyCompanyComponent implements OnInit {
     if (this.Company.controls.Party.valid) {
       console.log('hi');
       if (this.file) company.append('Logo', this.file);
-      company.append(
-        'Party',
-        JSON.stringify(this.Company.controls.Party.value)
-      );
+      company.append('Party', JSON.stringify(this.Company.value));
 
       this.apiService.updateCompany(company);
     }

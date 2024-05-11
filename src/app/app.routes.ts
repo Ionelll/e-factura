@@ -8,16 +8,33 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 
 export const routes: Routes = [
-  { path: 'invoice', component: InvoicePageComponent },
+  {
+    path: 'invoice',
+    component: InvoicePageComponent,
+    data: { animation: 'InvoicePage' },
+  },
   {
     path: 'dashboard',
     component: DashboardPageComponent,
     canActivate: [AuthGuard],
+    data: { animation: 'InvoicePage' },
   },
-  { path: 'help', component: HelpComponent },
-  { path: 'contact', component: ContactComponent },
-  {path:'register',component:RegisterComponent},
-  { path: 'login', component: LoginComponent },
+  { path: 'help', component: HelpComponent, data: { animation: 'HelpPage' } },
+  {
+    path: 'contact',
+    component: ContactComponent,
+    data: { animation: 'ContactPage' },
+  },
+  {
+    path: 'register',
+    component: RegisterComponent,
+    data: { animation: 'RegisterPage' },
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+    data: { animation: 'LoginPage' },
+  },
 
   { path: '**', redirectTo: 'invoice' },
 ];

@@ -25,58 +25,140 @@ body {
   margin: 0;
   box-sizing: border-box;
   user-select: none;
-  background-color: var(--background);
-}
+  background-image: url("../src/assets/black.webp");
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
 
+  // background-image: linear-gradient(
+  //   to right top,
+  //   #10151d,
+  //   #141b27,
+  //   #172132,
+  //   #1a283d,
+  //   #1e2e48,
+  //   #1e2e48,
+  //   #1e2e48,
+  //   #1e2e48,
+  //   #1a283d,
+  //   #172132,
+  //   #141b27,
+  //   #10151d
+  // );
+  // background-attachment: fixed;
+}
+html {
+  overflow-y: scroll;
+}
 p {
   margin: 0;
   color: white;
 }
+
 :root {
-  --toolbar: #1a2730;
-  --button: rgb(196 230 255);
-  --background: #fcffea;
-  --input-focused: #00000034;
-  --components: #ffffff00;
-  --components-border: #ffffff22;
-  --logo: #f4edea;
-  --label: #0063cd;
-  --actions: #06bcc1;
-  --actions-light: #f4edea;
-  --input-border: #02020b;
-  --danger: rgb(255 55 55);
-  --text: rgb(255, 247, 224);
+  --mat-datepicker-calendar-text-font: "Poppins", sans-serif;
+  --mat-datepicker-calendar-date-text-color: gray;
+  --mat-datepicker-calendar-date-selected-state-text-color: var(--text);
+  --mat-autocomplete-background-color: #000000;
+  --mdc-icon-button-icon-color: var(--text);
+  --mat-option-label-text-color: var(--text);
+  --primary: #171f2b;
+  --background: #10151d;
+  --button-background: #10151d;
+  --component-background: #0000004f;
+  --border: #888888;
+  --border-active: #6a82a8;
+  --text: #eaeaea;
+  --placeholder: #d9dfe7a2;
+  --label: #c6c6c6;
+  --action: #b895fd;
+  --action-active: #ffffff;
+  --accent: red;
+  --danger: red;
 }
 .container {
-  background-color: var(--components);
-  backdrop-filter: blur(10px);
-  // border: 1px solid var(--components-border);
-  border-radius: 5px;
-  border: 1px solid #06bbc15c;
-  padding: 0.5rem 0 0 0;
-  box-shadow: 4px 4px 10px 1px #000000ae;
+  background-color: var(--component-background);
+  backdrop-filter: blur(15px);
+
+  border-radius: 10px;
+
+  padding: 2rem;
+  // box-shadow: 4px 4px 10px 1px #000000ae;
+}
+.mdc-text-field {
+  padding: 0 !important;
+}
+.mdc-line-ripple::before,
+.mdc-line-ripple::after {
+  border-bottom-style: none !important;
+}
+.mdc-icon-button {
+  color: var(--action) !important;
+}
+.mat-datepicker-content-container {
+  background-color: var(--mat-autocomplete-background-color);
+  color: var(--text);
+}
+.mat-mdc-form-field-type-mat-date-range-input .mat-mdc-form-field-infix {
+  display: flex;
+  align-items: center;
+}
+.mat-mdc-form-field-subscript-wrapper,
+.mat-mdc-form-field-bottom-align::before {
+  display: none;
+  padding: 0;
+}
+.mat-mdc-icon-button {
+  padding: 0;
+}
+
+.mat-calendar-body-in-preview {
+  background-color: rgba(99, 99, 99, 0.57) !important;
+  border-radius: 50%;
+  border: none !important;
+}
+.mat-mdc-form-field-infix {
+  display: flex;
+  align-items: center;
+  color: var(--text);
+  font-family: "Google-regular", sans-serif;
+  font-size: 1em;
+  height: 1.5em;
+  padding-left: 15px;
+}
+.mat-calendar-body-cell-content {
+  border-width: 2px !important;
+}
+.mat-mdc-form-field-type-mat-date-range-input .mat-mdc-form-field-infix {
+  display: flex;
+  height: 1.7em;
 }
 .input,
 .textarea {
   font-size: 1em;
-  width: 100%;
+  // width: 100%;
   color: var(--text);
   font-weight: 200;
   font-family: "Poppins", sans-serif;
   outline: none;
   background-color: transparent;
   border: none;
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid var(--border);
+  padding-left: 15px;
 }
 textarea {
   resize: none;
   overflow: hidden;
 }
+textarea::placeholder {
+  color: var(--text);
+  font-weight: 200;
+  font-family: "Poppins", sans-serif;
+}
 
 .input[type="date"] {
-  text-align: center;
   color-scheme: dark;
-  font-family: "Audiowide", sans-serif;
+  font-family: "Google-regular", sans-serif;
   font-weight: 200;
 }
 
@@ -92,46 +174,56 @@ input[type="number"] {
 
 .link {
   all: unset;
-  color: var(--actions);
-  font-family: "Poppins", sans-serif;
-  font-weight: 500;
-  font-size: 14px;
-  padding: 1rem;
+  color: var(--action);
+  font-family: "Google-regular", sans-serif;
+  font-weight: 100;
+  font-size: 16px;
+
   text-wrap: nowrap;
   cursor: pointer;
 
   &:hover {
-    color: var(--actions-light);
+    color: var(--action-active);
   }
 }
 .button {
   all: unset;
+  background-color: transparent;
+  text-align: center;
+  font-family: "Google-regular", sans-serif;
+  color: var(--action);
+  // border: 1px solid var(--action);
 
-  background-color: var(--button);
-  box-shadow: 2px 2px 5px -2px var(--actions-light);
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  transition-duration: 0.1s;
+  transition-duration: 0.2s;
+  text-wrap: nowrap;
   &:hover {
-    background-color: white;
+    color: var(--action-active);
+    border-color: var(--action-active);
+    transition-duration: 0.2s;
   }
 }
 .label {
   grid-column: 1;
   letter-spacing: 1px;
-  color: var(--actions);
-  font-family: "Roboto", sans-serif;
-  font-size: 14px;
-  font-weight: 200;
+  color: var(--label);
+  font-family: "Google-regular", sans-serif;
+  font-size: 12px;
   text-wrap: nowrap;
   // border-bottom: 1px solid var(--input-border);
 }
+.text {
+  font-family: "Google-regular", sans-serif;
+  font-size: 14px;
+  font-weight: 200;
+  text-wrap: nowrap;
+  color: var(--text);
+  line-height: 1.5em;
+}
 .title {
   color: var(--text);
-  font-family: "Audiowide", sans-serif;
-  font-size: 20px;
+  font-family: "Google-regular", sans-serif;
+  font-size: 30px;
   letter-spacing: 2px;
-  margin-left: 2rem;
 }
 .opened-view {
   background-color: rgb(0 0 0 / 55%);
@@ -152,10 +244,12 @@ input[type="number"] {
   }
 }
 option {
-  background-color: black;
+  background-color: var(--background);
+  color: var(--text);
 }
+
 .more {
-  color: var(--actions);
+  color: var(--action);
   font-size: 10px;
   letter-spacing: 1px;
   font-family: "Poppins", sans-serif;
@@ -164,4 +258,16 @@ option {
   align-items: center;
   display: flex;
   justify-content: center;
+  &:hover {
+    color: var(--action-active);
+  }
+}
+@font-face {
+  font-family: "Google-regular";
+
+  src: url("assets/google-sans/ProductSans-Regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Google-thin";
+  src: url("assets/google-sans/ProductSans-Thin.ttf") format("truetype");
 }

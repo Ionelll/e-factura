@@ -59,7 +59,7 @@
         <ng-container formGroupName="Price">
           <select class="input" formControlName="UnitCode">
             <option *ngFor="let item of units" [value]="item.CommonCode">
-              {{ item.symbol || item.CommonCode }}
+              {{ item.name }}
             </option>
           </select>
           <input class="input" type="number" formControlName="PriceAmount" />

@@ -1,0 +1,27 @@
+.date {
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  height: 1.7em;
+  align-items: center;
+
+  .input {
+    border: none;
+    width: 100%;
+  }
+}
+.container {
+  display: grid;
+  grid-template-columns: 0.2fr 1fr;
+  align-items: end;
+  gap: 1rem;
+}
+.adress-container {
+  display: flex;
+  justify-content: space-between;
+  padding-right: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.adress {
+  width: 100%;
+  text-wrap: wrap;
+}

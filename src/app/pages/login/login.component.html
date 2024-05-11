@@ -4,9 +4,9 @@
       <p class="title">Login</p>
     </div>
     <form class="form" [formGroup]="userInput" (keydown.enter)="login()">
-      <label for="email" class="label">e-mail</label>
+      <label for="email" class="label">e-mail:</label>
       <input type="email" class="input" id="email" formControlName="email" />
-      <label for="password" class="label">password</label>
+      <label for="password" class="label">password:</label>
       <input
         type="password"
         class="input"
@@ -15,7 +15,7 @@
       />
     </form>
     <div class="footer">
-      <a  class="button" routerLink="/register">Creeaza cont</a>
+      <a class="button" routerLink="/register">Creeaza cont</a>
       <button class="button" (click)="login()">Login</button>
     </div>
   </div>

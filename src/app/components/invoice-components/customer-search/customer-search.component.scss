@@ -1,19 +1,19 @@
 .search {
   all: unset;
-  width: 90%;
-  font-family: "Poppins", sans-serif;
+  width: 100%;
+  font-family: "Google-regular", sans-serif;
 
-  font-size: 14px;
-  color: white;
-  border-radius: 10px;
-  box-shadow: inset 2px 2px 10px #0000004a;
-  border: 1px solid #06bbc17d;
-  padding: 5px 10px;
-  &:focus {
-    border: 1px solid #06bbc1;
-  }
+  font-size: 1em;
+  color: var(--text);
+  border-radius: 5px;
+  // box-shadow: inset 2px 2px 10px #000000;
+
+  padding: 1rem 15px;
 }
 .search::placeholder {
   font-style: italic;
-  color: #06bbc17d;
+  color: var(--placeholder);
+}
+.container {
+  display: flex;
 }

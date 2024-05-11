@@ -1,0 +1,40 @@
+<form class="container" [formGroup]="invoiceDelivery">
+  <label for="deliveryDate" class="label">data livrarii:</label>
+  <div class="date">
+    <input
+      class="input"
+      matInput
+      placeholder="Alege data"
+      formControlName="ActualDeliveryDate"
+      [matDatepicker]="picker"
+    />
+
+    <mat-datepicker-toggle [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </div>
+
+  <label class="label">adresa de livrare:</label>
+  <div class="adress-container">
+    <p class="text adress">
+      @if(adress){
+      {{ adress.PostBox ? adress.PostBox + ", " : "" }}
+      {{ adress.StreetName ? adress.StreetName + ", " : "" }}
+      {{ adress.BuildingNumber ? adress.BuildingNumber + ", " : "" }}
+      {{ adress.CityName ? adress.CityName + ", " : "" }}
+      {{ adress.PostalZone ? adress.PostalZone + ", " : ""
+      }}{{ adress.CountrySubentity ? adress.CountrySubentity + ", " : ""
+      }}{{
+        adress.Country.IdentificationCode
+          ? adress.Country.IdentificationCode
+          : ""
+      }}} @else { &nbsp;}
+    </p>
+    <button
+      class="link adress-link"
+      title="Schimbă adresa"
+      (click)="openModal()"
+    >
+      <span class="material-symbols-outlined"> edit </span>
+    </button>
+  </div>
+</form>

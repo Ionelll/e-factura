@@ -15,13 +15,13 @@
 .container {
   display: flex;
   flex-direction: column;
-  background-color: var(--toolbar);
   margin: auto;
   width: 40%;
+
 }
 .form {
   padding: 3rem;
-  align-items: center;
+  align-items: end;
   display: grid;
   row-gap: 1em;
   column-gap: 2rem;

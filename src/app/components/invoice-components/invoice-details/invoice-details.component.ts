@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {
   FormControl,
   FormGroup,
+  FormsModule,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
@@ -22,11 +23,24 @@ import {
 import { Adress } from '../../../models/adress.model';
 import { AdressService } from '../../../services/adress.service';
 import { InvoiceService } from '../../../services/invoice.service';
+import { MatFormField } from '@angular/material/form-field';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import { provideNativeDateAdapter } from '@angular/material/core';
 
 @Component({
   selector: 'app-invoice-details',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, TextFieldModule],
+  imports: [
+    ReactiveFormsModule,
+    FormsModule,
+    CommonModule,
+    TextFieldModule,
+    MatFormField,
+    MatDatepickerModule,
+    MatInputModule,
+  ],
+  providers: [provideNativeDateAdapter()],
   templateUrl: './invoice-details.component.html',
   styleUrl: './invoice-details.component.scss',
   animations: [
@@ -63,18 +77,18 @@ export class InvoiceDetailsComponent implements OnInit {
     private adressService: AdressService,
     private invoiceService: InvoiceService
   ) {}
+
   public duePeriod = 30;
   public currencies = CurrencySymbolMap;
   private startDateSub = new Subscription();
   private adressSub = new Subscription();
-  public adress: Adress;
+
   public status = false;
   public invoiceDetails = new FormGroup({
     ID: new FormControl('', Validators.required),
-    IssueDate: new FormControl(
-      new Date().toISOString().split('T')[0],
-      Validators.required
-    ),
+    IssueDate: new FormControl(new Date().toISOString().split('T')[0], [
+      Validators.required,
+    ]),
     InvoicePeriod: new FormGroup({
       StartDate: new FormControl(
         new Date().toISOString().split('T')[0],
@@ -94,20 +108,6 @@ export class InvoiceDetailsComponent implements OnInit {
     DocumentCurrencyCode: new FormControl('RON', Validators.required),
     OrderReference: new FormControl(''),
     ContractReference: new FormControl(''),
-    ActualDeliveryDate: new FormControl(''),
-    DeliveryLocation: new FormGroup({
-      Adress: new FormGroup({
-        PostBox: new FormControl(''),
-        StreetName: new FormControl(''),
-        BuildingNumber: new FormControl(''),
-        CityName: new FormControl(''),
-        PostalZone: new FormControl(''),
-        CountrySubentity: new FormControl(''),
-        Country: new FormGroup({
-          IdentificationCode: new FormControl(''),
-        }),
-      }),
-    }),
   });
   refreshDueDate() {
     if (this.invoiceDetails.controls.InvoicePeriod.controls.StartDate.value) {
@@ -122,13 +122,6 @@ export class InvoiceDetailsComponent implements OnInit {
       );
     }
   }
-  openModal() {
-    console.log('hi');
-    this.adressService.openModal(
-      'Delivery',
-      this.invoiceDetails.controls.DeliveryLocation.controls.Adress.getRawValue()
-    );
-  }
 
   changeCurrency() {
     this.invoiceService.setCurrency(
@@ -136,31 +129,20 @@ export class InvoiceDetailsComponent implements OnInit {
     );
   }
   ngOnInit(): void {
-    this.startDateSub =
-      this.invoiceDetails.controls.InvoicePeriod.controls.StartDate.valueChanges.subscribe(
-        (res) => {
-          if (res) {
-            console.log(res);
-            const newDate = new Date(res);
-            newDate.setDate(newDate.getDate() + 30);
-            const formattedDate = newDate.toISOString().split('T')[0];
-            console.log(formattedDate);
-            this.invoiceDetails.controls.InvoicePeriod.controls.EndDate.setValue(
-              formattedDate
-            );
-          }
-        }
-      );
-    this.adressSub = this.adressService
-      .subscribeCloseModal()
-      .subscribe((res) => {
-        if (res.id === 'Delivery') {
-          this.invoiceDetails.controls.DeliveryLocation.controls.Adress.reset();
-          this.invoiceDetails.controls.DeliveryLocation.controls.Adress.patchValue(
-            res.PostalAdress
-          );
-          this.adress = res.PostalAdress;
-        }
-      });
+    // this.startDateSub =
+    //   this.invoiceDetails.controls.InvoicePeriod.controls.StartDate.valueChanges.subscribe(
+    //     (res) => {
+    //       if (res) {
+    //         console.log(res);
+    //         const newDate = new Date(res);
+    //         newDate.setDate(newDate.getDate() + 30);
+    //         const formattedDate = newDate.toISOString().split('T')[0];
+    //         console.log(formattedDate);
+    //         this.invoiceDetails.controls.InvoicePeriod.controls.EndDate.setValue(
+    //           formattedDate
+    //         );
+    //       }
+    //     }
+    //   );
   }
 }

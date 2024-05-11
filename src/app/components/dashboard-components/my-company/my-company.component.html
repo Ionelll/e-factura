@@ -5,121 +5,136 @@
 
     <input type="file" #fileinput hidden (change)="onFileChange($event)" />
   </div>
-<!-- Suggested code may be subject to a license. Learn more: ~LicenseLog:938520754. -->
-<ng-container formGroupName="Party">
-  <ng-container formGroupName="PartyName">
-    <label for="name" class="label">Nume</label>
-    <input type="text" id="name" class="input" formControlName="Name" />
-  </ng-container>
-  <ng-container formGroupName="PartyLegalEntity">
-    <label for="CompanyRegistration" class="label"
-      >Nr. înregistrare</label
-    >
-    <input
-      type="text"
-      class="input"
-      id="CompanyRegistratiParty.controls.on"
-      formControlName="CompanyLegalForm"
-    />
-  </ng-container>
-  <ng-container formGroupName="PartyTaxScheme">
-    <label for="CompanyId" class="label">CUI</label>
-    <input
-      type="text"
-      class="input"
-      id="CompanyId"
-      formControlName="CompanyID"
-    />
-  </ng-container>
-  <label class="label">Adresa</label>
-  <div class="edit-adress-container">
-    <div
-      [ngClass]="{
-        'formatted-adress': true,
-        'ng-invalid': Company.controls.Party.controls.PostalAdress.invalid
-      }"
-    >
-      <div *ngIf="Company.controls.Party.controls.PostalAdress.controls.PostBox.value">
-        {{ Company.controls.Party.controls.PostalAdress.controls.PostBox.value }},&nbsp;
-      </div>
-      <div>
-        {{
-          Company.controls.Party.controls.PostalAdress.controls.StreetName.value
-        }}&nbsp;
-      </div>
+  <!-- Suggested code may be subject to a license. Learn more: ~LicenseLog:938520754. -->
+  <ng-container formGroupName="Party">
+    <ng-container formGroupName="PartyName">
+      <label for="name" class="label">Nume</label>
+      <input type="text" id="name" class="input" formControlName="Name" />
+    </ng-container>
+    <ng-container formGroupName="PartyLegalEntity">
+      <label for="CompanyRegistration" class="label">Nr. înregistrare</label>
+      <input
+        type="text"
+        class="input"
+        id="CompanyRegistratiParty.controls.on"
+        formControlName="CompanyLegalForm"
+      />
+    </ng-container>
+    <ng-container formGroupName="PartyTaxScheme">
+      <label for="CompanyId" class="label">CUI</label>
+      <input
+        type="text"
+        class="input"
+        id="CompanyId"
+        formControlName="CompanyID"
+      />
+    </ng-container>
+    <label class="label">Adresa</label>
+    <div class="edit-adress-container">
       <div
-        *ngIf="
-          Company.controls.Party.controls.PostalAdress.controls.BuildingNumber.value
-        "
+        [ngClass]="{
+          'formatted-adress': true,
+          'ng-invalid': Company.controls.Party.controls.PostalAdress.invalid
+        }"
       >
-        {{
-          Company.controls.Party.controls.PostalAdress.controls.BuildingNumber.value
-        }},&nbsp;
+        <div
+          *ngIf="
+            Company.controls.Party.controls.PostalAdress.controls.PostBox.value
+          "
+        >
+          {{
+            Company.controls.Party.controls.PostalAdress.controls.PostBox.value
+          }},&nbsp;
+        </div>
+        <div>
+          {{
+            Company.controls.Party.controls.PostalAdress.controls.StreetName
+              .value
+          }}&nbsp;
+        </div>
+        <div
+          *ngIf="
+            Company.controls.Party.controls.PostalAdress.controls.BuildingNumber
+              .value
+          "
+        >
+          {{
+            Company.controls.Party.controls.PostalAdress.controls.BuildingNumber
+              .value
+          }},&nbsp;
+        </div>
+        <div
+          *ngIf="
+            Company.controls.Party.controls.PostalAdress.controls.CityName.value
+          "
+        >
+          {{
+            Company.controls.Party.controls.PostalAdress.controls.CityName
+              .value
+          }},&nbsp;
+        </div>
+        <div
+          *ngIf="
+            Company.controls.Party.controls.PostalAdress.controls
+              .CountrySubentity.value
+          "
+        >
+          {{
+            Company.controls.Party.controls.PostalAdress.controls
+              .CountrySubentity.value
+          }},&nbsp;
+        </div>
+        <div
+          *ngIf="
+            Company.controls.Party.controls.PostalAdress.controls.Country
+              .controls.IdentificationCode.value
+          "
+        >
+          {{
+            Company.controls.Party.controls.PostalAdress.controls.Country
+              .controls.IdentificationCode.value
+          }}&nbsp;
+        </div>
+        <div
+          *ngIf="
+            Company.controls.Party.controls.PostalAdress.controls.PostalZone
+              .value
+          "
+        >
+          {{
+            Company.controls.Party.controls.PostalAdress.controls.PostalZone
+              .value
+          }}
+        </div>
       </div>
-      <div *ngIf="Company.controls.Party.controls.PostalAdress.controls.CityName.value">
-        {{
-          Company.controls.Party.controls.PostalAdress.controls.CityName.value
-        }},&nbsp;
-      </div>
-      <div
-        *ngIf="
-          Company.controls.Party.controls.PostalAdress.controls.CountrySubentity.value
-        "
+      <button
+        class="link adress-link"
+        title="Schimbă adresa"
+        (click)="openModal()"
       >
-        {{
-          Company.controls.Party.controls.PostalAdress.controls.CountrySubentity.value
-        }},&nbsp;
-      </div>
-      <div
-        *ngIf="
-          Company.controls.Party.controls.PostalAdress.controls.Country.controls
-            .IdentificationCode.value
-        "
-      >
-        {{
-          Company.controls.Party.controls.PostalAdress.controls.Country.controls
-            .IdentificationCode.value
-        }}&nbsp;
-      </div>
-      <div
-        *ngIf="Company.controls.Party.controls.PostalAdress.controls.PostalZone.value"
-      >
-        {{ Company.controls.Party.controls.PostalAdress.controls.PostalZone.value }}
-      </div>
+        <span class="material-symbols-outlined"> border_color </span>
+      </button>
     </div>
-    <button
-      class="link adress-link"
-      title="Schimbă adresa"
-      (click)="openModal()"
-    >
-      <span class="material-symbols-outlined"> border_color </span>
-    </button>
-  </div>
-  <p class="label contact">Contact</p>
-  <ng-container formGroupName="Contact">
-    <label for="numeContact" class="label">Nume</label>
-    <input
-      type="text"
-      id="numeContact"
-      class="input"
-      formControlName="Name"
-    />
-    <label for="phone" class="label">Telefon</label>
-    <input
-      type="text"
-      id="phone"
-      class="input"
-      formControlName="Telephone"
-    />
-    <label for="email" class="label">E-mail</label>
-    <input
-      type="text"
-      class="input"
-      id="email"
-      formControlName="ElectronicMail"
-    />
+    <p class="label contact">Contact</p>
+    <ng-container formGroupName="Contact">
+      <label for="numeContact" class="label">Nume</label>
+      <input
+        type="text"
+        id="numeContact"
+        class="input"
+        formControlName="Name"
+      />
+      <label for="phone" class="label">Telefon</label>
+      <input type="text" id="phone" class="input" formControlName="Telephone" />
+      <label for="email" class="label">E-mail</label>
+      <input
+        type="text"
+        class="input"
+        id="email"
+        formControlName="ElectronicMail"
+      />
+    </ng-container>
   </ng-container>
- 
   <p class="label">Bank Account</p>
   <ng-container formGroupName="PayeeFinancialAccount" class="bank-container">
     <label for="currency" class="label">Moneda</label>
@@ -137,6 +152,6 @@
       <input class="input" id="name" type="text" formControlName="Name" />
     </ng-container>
   </ng-container>
-</ng-container>
+
   <button class="button" (click)="save()">Salveaza</button>
 </form>

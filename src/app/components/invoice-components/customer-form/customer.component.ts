@@ -78,78 +78,28 @@ export class CustomerComponent implements OnInit, OnDestroy {
     private invoiceService: InvoiceService
   ) {}
 
-  public Customer = new FormGroup({
-    PartyName: new FormGroup({
-      Name: new FormControl('', Validators.required),
-    }),
-    PartyTaxScheme: new FormGroup({
-      CompanyID: new FormControl('', Validators.required),
-      TaxScheme: new FormGroup({
-        ID: new FormControl('VAT', Validators.required),
-      }),
-    }),
-    PartyLegalEntity: new FormGroup({
-      RegistrationName: new FormControl('', Validators.required),
-      CompanyLegalForm: new FormControl('', Validators.required),
-    }),
-    PostalAdress: new FormGroup({
-      PostBox: new FormControl(''),
-      StreetName: new FormControl('', Validators.required),
-      BuildingNumber: new FormControl(''),
-      CityName: new FormControl('', Validators.required),
-      PostalZone: new FormControl(''),
-      CountrySubentity: new FormControl(''),
-      Country: new FormGroup({
-        IdentificationCode: new FormControl('', Validators.required),
-      }),
-    }),
-    Contact: new FormGroup({
-      Name: new FormControl(''),
-      Telephone: new FormControl(''),
-      ElectronicMail: new FormControl(''),
-    }),
-  });
-  public status = false;
-  public recieved = false;
   private customerSub = new Subscription();
-  private adressSub = new Subscription();
-  private customerId: string;
+  public client: Company;
   ngOnInit(): void {
     this.customerSub = this.apiService
       .getCustomer()
       .subscribe((res: Company) => {
         if (res?.Party && res?._id) {
-          this.customerId = res?._id;
-          this.Customer.reset();
-          this.Customer.patchValue(res.Party);
-          this.Customer.controls.PartyLegalEntity.controls.RegistrationName.setValue(
-            res.Party.PartyName.Name
-          );
-          this.invoiceService.setCustomer(res.Party);
-          this.recieved = true;
-        }
-      });
-    this.adressSub = this.adressService
-      .subscribeCloseModal()
-      .subscribe((res) => {
-        if (res.id === 'Customer') {
-          this.Customer.controls.PostalAdress.reset();
-          this.Customer.controls.PostalAdress.patchValue(res.PostalAdress);
+          this.client = res;
         }
       });
   }
   ngOnDestroy(): void {
     this.customerSub.unsubscribe();
-    this.adressSub.unsubscribe();
   }
 
-  openModal() {
-    this.adressService.openModal(
-      'Customer',
-      this.Customer.controls.PostalAdress.getRawValue()
-    );
-  }
-  clearForm() {
-    this.Customer.reset();
-  }
+  // openModal() {
+  //   this.adressService.openModal(
+  //     'Customer',
+  //     this.Customer.controls.PostalAdress.getRawValue()
+  //   );
+  // }
+  // clearForm() {
+  //   this.Customer.reset();
+  // }
 }

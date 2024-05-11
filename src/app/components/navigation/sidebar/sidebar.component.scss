@@ -1,0 +1,55 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  left: 0;
+  height: 100%;
+  padding: 0 0.5rem;
+  justify-content: space-around;
+  z-index: 100;
+  backdrop-filter: blur(15px);
+  background-color: var(--component-background);
+  border-right: 1px solid var(--border);
+}
+.links {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.factura-links {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+
+  gap: 0.5rem;
+}
+.link {
+  display: flex;
+  flex-direction: column;
+  transition-duration: 0.2s;
+  align-items: center;
+  color: rgb(221, 221, 221);
+  font-size: 14px;
+  font-family: "Google-thin", sans-serif;
+  letter-spacing: 1px;
+  &:hover {
+    color: var(--action-active);
+  }
+}
+.link2 {
+  font-size: 14px;
+}
+.active {
+  color: var(--action-active);
+}
+span {
+  transform: scale(1.2);
+  font-weight: 100;
+}
+.logo {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--placeholder);
+  text-wrap: nowrap;
+}

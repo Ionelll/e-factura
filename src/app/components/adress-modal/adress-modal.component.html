@@ -12,7 +12,13 @@
         <mat-icon>close</mat-icon>
       </button>
     </div>
-    <input type="text" class="search" id="search" #search />
+    <input
+      type="text"
+      class="input search"
+      id="search"
+      #search
+      placeholder="Cauta adresa"
+    />
     <div class="body">
       <label for="PostBox" class="label">Cutie postala</label>
       <input type="text" id="PostBox" class="input" formControlName="PostBox" />
@@ -50,3 +56,93 @@
     </div>
   </form>
 </div>
+<!-- <form [formGroup]="Customer" class="form">
+  <ng-container formGroupName="PartyName">
+    <label for="name" class="label">Nume</label>
+    <input type="text" id="name" class="input" formControlName="Name" />
+  </ng-container>
+  <ng-container formGroupName="PartyLegalEntity">
+    <label for="CompanyRegistration" class="label">Nr. înregistrare</label>
+    <input
+      type="text"
+      class="input"
+      id="CustomerRegistration"
+      formControlName="CompanyLegalForm"
+    />
+  </ng-container>
+  <ng-container formGroupName="PartyTaxScheme">
+    <label for="CompanyId" class="label">CUI</label>
+    <input
+      type="text"
+      class="input"
+      id="CompanyId"
+      formControlName="CompanyID"
+    />
+  </ng-container>
+  <label class="label">Adresa</label>
+  <div class="edit-adress-container">
+    <div
+      [ngClass]="{
+        'formatted-adress': true,
+        'ng-invalid': Customer.controls.PostalAdress.invalid
+      }"
+    >
+      <div *ngIf="Customer.controls.PostalAdress.controls.PostBox.value">
+        {{ Customer.controls.PostalAdress.controls.PostBox.value }},&nbsp;
+      </div>
+      <div>
+        {{ Customer.controls.PostalAdress.controls.StreetName.value }}&nbsp;
+      </div>
+      <div *ngIf="Customer.controls.PostalAdress.controls.BuildingNumber.value">
+        {{
+          Customer.controls.PostalAdress.controls.BuildingNumber.value
+        }},&nbsp;
+      </div>
+      <div *ngIf="Customer.controls.PostalAdress.controls.CityName.value">
+        {{ Customer.controls.PostalAdress.controls.CityName.value }},&nbsp;
+      </div>
+      <div
+        *ngIf="Customer.controls.PostalAdress.controls.CountrySubentity.value"
+      >
+        {{
+          Customer.controls.PostalAdress.controls.CountrySubentity.value
+        }},&nbsp;
+      </div>
+      <div
+        *ngIf="
+          Customer.controls.PostalAdress.controls.Country.controls
+            .IdentificationCode.value
+        "
+      >
+        {{
+          Customer.controls.PostalAdress.controls.Country.controls
+            .IdentificationCode.value
+        }}&nbsp;
+      </div>
+      <div *ngIf="Customer.controls.PostalAdress.controls.PostalZone.value">
+        {{ Customer.controls.PostalAdress.controls.PostalZone.value }}
+      </div>
+    </div>
+    <button
+      class="link adress-link"
+      title="Schimbă adresa"
+      (click)="openModal()"
+    >
+      <span class="material-symbols-outlined"> border_color </span>
+    </button>
+  </div>
+  <p class="label contact">Contact</p>
+  <ng-container formGroupName="Contact">
+    <label for="numeContact" class="label">Nume</label>
+    <input type="text" id="numeContact" class="input" formControlName="Name" />
+    <label for="phone" class="label">Telefon</label>
+    <input type="text" id="phone" class="input" formControlName="Telephone" />
+    <label for="email" class="label">E-mail</label>
+    <input
+      type="text"
+      class="input"
+      id="email"
+      formControlName="ElectronicMail"
+    />
+  </ng-container>
+</form> -->

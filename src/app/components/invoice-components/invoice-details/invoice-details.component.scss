@@ -1,9 +1,10 @@
 .form {
   display: grid;
   grid-template-columns: 0.2fr 1fr;
-  padding: 1rem;
+
   gap: 1em;
-  align-items: center;
+  align-items: end;
+  justify-content: center;
 }
 .header {
   display: flex;
@@ -40,7 +41,7 @@
   }
 }
 
-.ng-invalid:not(form) {
+.nrfac.ng-invalid:not(mat-form-field, form) {
   border-bottom: 1px solid red;
 }
 .edit-adress-container {
@@ -50,4 +51,23 @@
 .adress-link {
   padding: 0.1rem;
   display: flex;
+}
+.picker {
+  color: var(--text);
+  border-bottom: 1px solid var(--border);
+
+  font-weight: 200;
+  font-family: "Poppins", sans-serif;
+  font-size: 1em;
+}
+.date {
+  border-bottom: 1px solid var(--border);
+  .input {
+    border: none;
+    width: 100%;
+  }
+}
+.date.ng-invalid:not(.input),
+.picker.ng-invalid:not(.input) {
+  border-bottom: 1px solid var(--danger);
 }

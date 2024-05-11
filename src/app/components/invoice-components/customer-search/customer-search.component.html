@@ -1,10 +1,10 @@
-<ng-container [formGroup]="search">
+<div [formGroup]="search">
   <input
     type="text"
     class="search"
     formControlName="input"
     [matAutocomplete]="auto"
-    placeholder="Caută..."
+    placeholder="Caută client   ( nume, cui sau nr. inregistrare )"
   />
   <mat-autocomplete
     #auto="matAutocomplete"
@@ -15,4 +15,4 @@
     <mat-option value="{{ option }}">{{ option }}</mat-option>
     }
   </mat-autocomplete>
-</ng-container>
+</div>

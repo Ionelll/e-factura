@@ -101,7 +101,7 @@ export class AdressModalComponent {
   PostalAdress = new FormGroup({
     PostBox: new FormControl(''),
     StreetName: new FormControl('', Validators.required),
-    BuildingNumber: new FormControl(''),
+    BuildingNumber: new FormControl('', Validators.required),
     CityName: new FormControl('', Validators.required),
     PostalZone: new FormControl(''),
     CountrySubentity: new FormControl('', Validators.required),
